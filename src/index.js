@@ -1,25 +1,46 @@
 import debounce from "lodash.debounce";
-
-import { alert, info } from '../node_modules/@pnotify/core/dist/PNotify.js';
+import cardTpl from './templates/templatesCountry.hbs'
+import listTpl from './templates/templatesList.hbs'
+import { alert } from '@pnotify/core/dist/PNotify';
 import '@pnotify/core/dist/BrightTheme.css';
 
-alert({
-    text: 'Notice me, senpai!'
-});
-  
+const PNotify = require('@pnotify/core');
+
 const refs = {
     input: document.querySelector('#search'),
     container: document.querySelector('.container')
 }
 
-const url = 'https://restcountries.eu/rest/v2/name/'
-
 const findCountry = (e) => {
     e.preventDefault();
-    const value = refs.input.value
-    fetch(url + value)
+    clearArticle()
+    const name = refs.input.value
+    fetch(`https://restcountries.eu/rest/v2/name/${name}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(countries => buildListMarkup(countries, cardTpl))
     .catch(err => console.log(err))
 }
 refs.input.addEventListener('input', debounce(findCountry, 500))
+
+
+
+function clearArticle() {
+    refs.container.innerHTML = '';
+    PNotify.defaultStack.close();
+}
+
+function buildListMarkup(countries, cardTpl) {
+    if (countries.length > 10) {
+        alert({
+            text: 'Too many matches found. Please enter a more specific query!'
+        });
+    }
+    if (countries.length > 2 && countries.length <= 10) {
+        const markup = countries.map(listTpl).join();
+        refs.container.insertAdjacentHTML('afterbegin', markup)
+    }
+    if (countries.length === 1) {
+        const markup = countries.map(cardTpl).join();
+        refs.container.insertAdjacentHTML('afterbegin', markup)
+    }
+}
