@@ -1,3 +1,4 @@
+import "./style.css"
 import debounce from "lodash.debounce";
 import cardTpl from './templates/templatesCountry.hbs'
 import listTpl from './templates/templatesList.hbs'
