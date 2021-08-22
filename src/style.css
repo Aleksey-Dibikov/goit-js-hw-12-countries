@@ -3,6 +3,29 @@ input {
   height: 50px;
   margin: 50px auto;
   border-radius: 10px;
-  color: grey;
+  border-color: rgb(190, 190, 190);
   text-transform: uppercase;
+  outline-color: rgb(137, 182, 240);
+}
+
+.item-country {
+  font-size: 20px;
+}
+
+.country {
+  font-size: 50px;
+}
+
+.heading-item {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.text {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.flag {
+  width: 600px;
 }

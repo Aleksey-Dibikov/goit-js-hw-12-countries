@@ -37,11 +37,11 @@ function buildListMarkup(countries, cardTpl) {
         });
     }
     if (countries.length > 2 && countries.length <= 10) {
-        const markup = countries.map(listTpl).join();
+        const markup = countries.map(listTpl).join('');
         refs.container.insertAdjacentHTML('afterbegin', markup)
     }
     if (countries.length === 1) {
-        const markup = countries.map(cardTpl).join();
+        const markup = countries.map(cardTpl).join('');
         refs.container.insertAdjacentHTML('afterbegin', markup)
     }
 }
