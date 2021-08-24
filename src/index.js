@@ -36,7 +36,7 @@ function buildListMarkup(countries, cardTpl) {
             text: 'Too many matches found. Please enter a more specific query!'
         });
     }
-    if (countries.length > 2 && countries.length <= 10) {
+    if (countries.length >= 2 && countries.length <= 10) {
         const markup = countries.map(listTpl).join('');
         refs.container.insertAdjacentHTML('afterbegin', markup)
     }
