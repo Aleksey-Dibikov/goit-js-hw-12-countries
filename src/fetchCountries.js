@@ -26,6 +26,17 @@ const findCountry = async (e) => {
     // .catch(err => console.log(err))
 }
 
+const doStuff = async () => {
+  try {
+    const country = await findCountry();
+    console.log(country);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+doStuff();
+
 refs.input.addEventListener('input', debounce(findCountry, 500))
 
 function clearArticle() {
