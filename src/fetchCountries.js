@@ -13,18 +13,20 @@ const refs = {
     container: document.querySelector('.container')
 }
 
-const findCountry = (e) => {
+const findCountry = async (e) => {
     e.preventDefault();
-    clearArticle()
-    const name = refs.input.value
-    fetch(`https://restcountries.eu/rest/v2/name/${name}`)
-    .then(response => response.json())
-    .then(countries => buildListMarkup(countries, cardTpl))
-    .catch(err => console.log(err))
+    clearArticle();
+    const name = refs.input.value;
+    const resp = await fetch(`https://restcountries.eu/rest/v2/name/${name}`);
+    const countries = await resp.json();
+    const city = await buildListMarkup(countries, cardTpl);
+    return city;
+    // .then(response => response.json())
+    // .then(countries => buildListMarkup(countries, cardTpl))
+    // .catch(err => console.log(err))
 }
+
 refs.input.addEventListener('input', debounce(findCountry, 500))
-
-
 
 function clearArticle() {
     refs.container.innerHTML = '';
